@@ -11,7 +11,6 @@ arch:
   - amd64
   - i386
 init: false
-apparmor: true
 ingress: true
 ingress_port: 3000
 ingress_stream: true
