@@ -1,4 +1,7 @@
 configuration:
-  message:
-    name: Message
-    description: The message that will be printed to the log when starting this example add-on.
+  postgres_url:
+    name: Postgres Url
+    description: The URL to connect to the spliit postgres Db
+  postgres_url_non_pooling:
+    name: Postgres Url Non-Pooling
+    description: The URL to connect to the spliit postgres Db

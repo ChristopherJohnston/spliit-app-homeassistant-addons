@@ -13,13 +13,15 @@ arch:
 init: false
 ingress: true
 ingress_port: 3000
+ingress_stream: true
+panel_icon: mdi:receipt-text-check
 ports:
   3000/tcp: null
 map:
   - share:rw
 options:
-  postgres_url: "postgresql://postgres:1234@localhost"
-  postgres_url_non_pooling: "postgresql://postgres:1234@localhost"
+  postgres_url: "postgresql://postgres:1234@localhost/spliit"
+  postgres_url_non_pooling: "postgresql://postgres:1234@locahost/spliit"
 schema:
   postgres_url: "str"
   postgres_url_non_pooling: "str"
