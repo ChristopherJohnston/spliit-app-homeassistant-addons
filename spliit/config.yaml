@@ -9,20 +9,27 @@ arch:
   - armv7
   - aarch64
   - amd64
-  - i386
 init: false
 ingress: true
 ingress_port: 3000
 ingress_stream: true
+hassio_role: manager
+homeassistant_api: true
+map:
+  - addons:rw
+  - all_addon_configs:rw
+  - backup:rw
+  - homeassistant_config:rw
+  - media:rw
+  - share:rw
+  - ssl:rw
 panel_icon: mdi:receipt-text-check
 ports:
   3000/tcp: null
-map:
-  - share:rw
 options:
   postgres_url: "postgresql://postgres:1234@localhost/spliit"
-  postgres_url_non_pooling: "postgresql://postgres:1234@locahost/spliit"
+  postgres_url_non_pooling: "postgresql://postgres:1234@localhost/spliit"
 schema:
   postgres_url: "str"
   postgres_url_non_pooling: "str"
-image: "ghcr.io/ChristopherJohnston/{arch}-spliit-app-homeassistant-addons"
+  image: "ghcr.io/ChristopherJohnston/{arch}-spliit-app-homeassistant-addons"
