@@ -17,10 +17,12 @@ RUN \
 WORKDIR /usr/bin/spliit/spliit2-${SPLIIT_VERSION}
 
 COPY .env .
+COPY next.config.js .
 COPY run.sh .
 RUN chmod a+x run.sh
 
 RUN npm install --ignore-scripts \
+        && npm install sharp \
         && npm install -g prisma \
         && prisma generate \
         && npm run build
