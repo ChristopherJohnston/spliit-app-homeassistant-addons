@@ -32,4 +32,4 @@ options:
 schema:
   postgres_url: "str"
   postgres_url_non_pooling: "str"
-  image: "ghcr.io/ChristopherJohnston/{arch}-spliit-app-homeassistant-addons"
+image: "ghcr.io/ChristopherJohnston/{arch}-spliit-app-homeassistant-addons"
