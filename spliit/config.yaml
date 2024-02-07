@@ -5,13 +5,11 @@ slug: spliit
 description: Free and Open Source Alternative to Splitwise. Share expenses with your friends and family.
 url: "https://github.com/ChristopherJohnston/spliit-app-homeassistant-addons/tree/main/spliit"
 arch:
-  - armhf
-  - armv7
   - aarch64
   - amd64
 init: false
 ingress: true
-ingress_port: 3000
+ingress_port: 443
 ingress_stream: true
 hassio_role: manager
 homeassistant_api: true
@@ -25,11 +23,17 @@ map:
   - ssl:rw
 panel_icon: mdi:receipt-text-check
 ports:
-  3000/tcp: null
+  443/tcp: null
+ports_description:
+  443/tcp: Web interface (Not required for Ingress)
 options:
   postgres_url: "postgresql://postgres:1234@localhost/spliit"
   postgres_url_non_pooling: "postgresql://postgres:1234@localhost/spliit"
+  certfile: "fullchain.pem"
+  keyfile: "privkey.pem"
 schema:
   postgres_url: "str"
   postgres_url_non_pooling: "str"
+  certfile: "str"
+  keyfile: "str"
 image: "ghcr.io/christopherjohnston/{arch}-addon-spliit"

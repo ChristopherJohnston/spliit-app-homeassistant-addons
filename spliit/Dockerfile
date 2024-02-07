@@ -19,7 +19,9 @@ WORKDIR /usr/bin/spliit/spliit2-${SPLIIT_VERSION}
 COPY .env .
 COPY next.config.js .
 COPY run.sh .
+COPY server.js .
 RUN chmod a+x run.sh
+RUN chmod a+x server.js
 
 RUN npm install --ignore-scripts \
         && npm install sharp \
