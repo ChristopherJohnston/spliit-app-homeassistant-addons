@@ -5,3 +5,9 @@ configuration:
   postgres_url_non_pooling:
     name: Postgres Url Non-Pooling
     description: The URL to connect to the spliit postgres Db
+  certfile:
+    name: SSL Certficate file
+    description: Certificate file must be located in /ssl directory
+  keyfile:
+    name: SSL Key file
+    description: Privae key file must be located in /ssl directory
