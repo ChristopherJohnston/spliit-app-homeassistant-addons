@@ -9,4 +9,8 @@ bashio::net.wait_for 3000
 
 bashio::log.info "Starting NGinx...."
 
+ls -la /var/lib/nginx
+ls -la /var/log/nginx
+whoami
+
 exec nginx
