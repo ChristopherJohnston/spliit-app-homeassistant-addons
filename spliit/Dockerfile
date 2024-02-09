@@ -42,6 +42,8 @@ RUN npm install --ignore-scripts \
         && rm -f -r \
           /etc/nginx \
           /tmp/* \
-          /temp/*
+          /temp/* \
+        && mkdir -p /var/lib/nginx/tmp /var/log/nginx \
+        && chmod -R 755 /var/lib/nginx /var/log/nginx
 
 COPY rootfs /

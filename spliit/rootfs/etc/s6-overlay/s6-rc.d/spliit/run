@@ -35,7 +35,7 @@ fi
 
 if bashio::config.true 'category_extract'; then
     bashio::log.info "Category Extract enabled"
-    export NEXT_PUBLIC_ENABLE_RECEIPT_EXTRACT=true
+    export NEXT_PUBLIC_ENABLE_CATEGORY_EXTRACT=true
 fi
 
 if bashio::config.true 'receipt_extract' || bashio::config.true 'category_extract'; then
