@@ -1,5 +1,9 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.0.5
+
+- chmod 766 on log dir
+
 ## 1.0.4
 
 - Fix category extract setting
