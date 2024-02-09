@@ -5,6 +5,39 @@ configuration:
   postgres_url_non_pooling:
     name: Postgres Url Non-Pooling
     description: The URL to connect to the spliit postgres Db
+
+  expense_documents:
+    name: Enable Expense Document Upload
+    description: Enables the feature to upload expense documents to an AWS S3 Bucket.
+  s3_endpoint:
+    name: S3 Custom Endpoint
+    description: Endpoint for writing to s3-compatible providers (e.g. minio).
+  s3_bucket:
+    name: S3 Bucket Name
+    description: The name of the S3 Bucket to write documents.
+  s3_region:
+    name: S3 Region
+    description: The AWS region in which the s3 bucket is located.
+  s3_key:
+    name: S3 API Key
+    description: The API key for accessing the bucket.
+  s3_secret:
+    name: S3 API Secret
+    description: The API Secret for accessing the bucket.
+
+  receipt_extract:
+    name: Enable Receipt Extract
+    description: Allows the app to use OpenAI to extract expense data from an uploaded receipt.
+  category_extract:
+    name: Enable Category Extract
+    description: Allows the app to use OpenAI to extract the expense category from the title.
+  openai_api_key:
+    name: OpenAI API Key
+    description: The API key for making OpenAI calls.
+
+  ssl:
+    name: Use SSL
+    description: Enable/Disable SSL for the web app
   certfile:
     name: SSL Certficate file
     description: Certificate file must be located in /ssl directory
