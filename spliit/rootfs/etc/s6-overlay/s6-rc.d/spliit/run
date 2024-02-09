@@ -1,0 +1,48 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
+# Home Assistant Add-on: Spliit
+# Runs the spliit app
+# ==============================================================================
+bashio::log.info "Starting spliit..."
+
+export POSTGRES_PRISMA_URL
+export POSTGRES_URL_NON_POOLING
+
+POSTGRES_PRISMA_URL=$(bashio::config "postgres_url")
+POSTGRES_URL_NON_POOLING=$(bashio::config "postgres_url_non_pooling")
+
+if bashio::config.true 'expense_documents'; then
+
+    bashio::log.info "Expense document upload feature enabled."
+
+    export NEXT_PUBLIC_ENABLE_EXPENSE_DOCUMENTS=true
+    export S3_UPLOAD_KEY=$(bashio::config "s3_bucket")
+    export S3_UPLOAD_SECRET=$(bashio::config "s3_region")
+    export S3_UPLOAD_BUCKET=$(bashio::config "s3_key")
+    export S3_UPLOAD_REGION=$(bashio::config "s3_secret")
+
+    if bashio::var.has_value "s3_endpoint"; then
+        bashio::log.info "Using custom S3 Endpoint URL: $(bashio::config "s3_endpoint")"
+        export S3_UPLOAD_ENDPOINT=$(bashio::config "s3_endpoint")
+    fi
+fi
+
+if bashio::config.true 'receipt_extract'; then
+    bashio::log.info "Receipt Extract enabled"
+    export NEXT_PUBLIC_ENABLE_RECEIPT_EXTRACT=true
+fi
+
+if bashio::config.true 'category_extract'; then
+    bashio::log.info "Category Extract enabled"
+    export NEXT_PUBLIC_ENABLE_RECEIPT_EXTRACT=true
+fi
+
+if bashio::config.true 'receipt_extract' || bashio::config.true 'category_extract'; then
+    bashio::log.info "Setting OpenAI API Key"
+    export OPENAI_API_KEY=$(bashio::config "openai_api_key")
+fi
+
+cd /var/www/spliit || exit
+prisma migrate deploy
+NODE_ENV=production npm run start

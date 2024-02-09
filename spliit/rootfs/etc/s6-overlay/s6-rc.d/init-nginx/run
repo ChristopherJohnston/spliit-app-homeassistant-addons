@@ -1,0 +1,31 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
+# Home Assistant Add-on: Spliit
+# configures NGINX for use with Spliit
+# ==============================================================================
+
+# Generate Ingress spliit configuration
+bashio::log.info "Setting up nginx ingress"
+
+bashio::var.json \
+    interface "$(bashio::addon.ip_address)" \
+    | tempio \
+        -template /etc/nginx/templates/ingress.gtpl \
+        -out /etc/nginx/servers/ingress.conf
+
+
+# Generate direct access configuration, if enabled.
+if bashio::var.has_value "$(bashio::addon.port 80)"; then
+  bashio::log.info "Setting up nginx public interface."
+
+    bashio::config.require.ssl
+    bashio::var.json \
+        interface "$(bashio::addon.ip_address)" \
+        certfile "$(bashio::config 'certfile')" \
+        keyfile "$(bashio::config 'keyfile')" \
+        ssl "^$(bashio::config 'ssl')" \
+        | tempio \
+            -template /etc/nginx/templates/direct.gtpl \
+            -out /etc/nginx/servers/direct.conf
+fi

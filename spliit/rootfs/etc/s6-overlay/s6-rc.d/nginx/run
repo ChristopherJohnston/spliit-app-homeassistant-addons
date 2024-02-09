@@ -1,0 +1,12 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# Home Assistant Add-on: Spliit
+# Runs the Nginx daemon
+# ==============================================================================
+
+# Wait for spliit to become available
+bashio::net.wait_for 3000
+
+bashio::log.info "Starting NGinx...."
+
+exec nginx
