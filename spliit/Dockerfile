@@ -45,7 +45,7 @@ RUN npm install --ignore-scripts \
           /temp/* \
         && mkdir -p /var/lib/nginx/tmp /var/log/nginx /var/lib/nginx/logs /var/lib/nginx/tmp/client_body \
         && chown -R nginx:nginx /var/lib/nginx \
-        && chmod -R 766 /var/lib/nginx /var/log/nginx /var/lib/nginx/logs /var/lib/nginx/tmp/client_body
+        && chmod -R 777 /var/lib/nginx /var/log/nginx /var/lib/nginx/logs /var/lib/nginx/tmp/client_body
 
 
 COPY rootfs /
