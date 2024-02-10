@@ -1,5 +1,9 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.0.8
+
+- run nginx as root user, chown directories as root
+
 ## 1.0.7
 
 - run nginx as nginx user
