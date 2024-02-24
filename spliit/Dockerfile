@@ -4,10 +4,10 @@ FROM $BUILD_FROM
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Execute during the build of the image
-# ARG SPLIIT_VERSION
+ARG SPLIIT_VERSION
 # RUN mkdir -p /usr/bin/spliit
 # WORKDIR /usr/bin/spliit
-# ADD https://github.com/ChristopherJohnston/spliit2/archive/refs/tags/${SPLIIT_VERSION}.tar.gz .
+# ADD https://github.com/spliit-app/spliit/archive/refs/tags/${SPLIIT_VERSION}.tar.gz /temp/spliit
 # RUN tar -xvzf ${SPLIIT_VERSION}.tar.gz \
   # && rm ${SPLIIT_VERSION}.tar.gz
 
@@ -16,7 +16,7 @@ RUN \
     && apk add --no-cache --update nodejs npm nginx \
     && apk add --no-cache --virtual .build-dependencies git \
     \
-    && git clone --depth=1 \
+    && git clone --branch=${SPLIIT_VERSION} --depth=1 \
       https://github.com/spliit-app/spliit /temp/spliit
 
 WORKDIR /temp/spliit

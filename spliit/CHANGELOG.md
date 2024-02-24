@@ -1,5 +1,9 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.0.9
+
+- use specific tag on spliit repo and update to spliit 1.2.0
+
 ## 1.0.8
 
 - run nginx as root user, chown directories as root

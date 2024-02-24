@@ -8,4 +8,4 @@ labels:
   org.opencontainers.image.source: "https://github.com/ChristopherJohnston/spliit-app-homeassistant-addons"
   org.opencontainers.image.licenses: "Apache License 2.0"
 args:
-  SPLIIT_VERSION: "2024.1.2"
+  SPLIIT_VERSION: "1.2.0"
