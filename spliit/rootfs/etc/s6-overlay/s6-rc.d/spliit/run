@@ -17,10 +17,10 @@ if bashio::config.true 'expense_documents'; then
     bashio::log.info "Expense document upload feature enabled."
 
     export NEXT_PUBLIC_ENABLE_EXPENSE_DOCUMENTS=true
-    export S3_UPLOAD_KEY=$(bashio::config "s3_bucket")
-    export S3_UPLOAD_SECRET=$(bashio::config "s3_region")
-    export S3_UPLOAD_BUCKET=$(bashio::config "s3_key")
-    export S3_UPLOAD_REGION=$(bashio::config "s3_secret")
+    export S3_UPLOAD_KEY=$(bashio::config "s3_key")
+    export S3_UPLOAD_SECRET=$(bashio::config "s3_secret")
+    export S3_UPLOAD_BUCKET=$(bashio::config "s3_bucket")
+    export S3_UPLOAD_REGION=$(bashio::config "s3_region")
 
     if bashio::var.has_value "s3_endpoint"; then
         bashio::log.info "Using custom S3 Endpoint URL: $(bashio::config "s3_endpoint")"
