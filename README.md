@@ -1,6 +1,6 @@
-# Example Home Assistant add-on repository
+# Spliit Homeassistant Add-On Repository
 
-This repository can be used as a "blueprint" for add-on development to help you get started.
+This repository contains add-ons related to the Spliit application. Specifically the Spliit web application for self-hosting your own instance in homeassistant.
 
 Add-on documentation: <https://developers.home-assistant.io/docs/add-ons>
 
@@ -8,15 +8,14 @@ Add-on documentation: <https://developers.home-assistant.io/docs/add-ons>
 
 ## Add-ons
 
-This repository contains the following add-ons
+This repository contains the following add-ons:
 
 ### [Spliit](./spliit)
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
-![Supports i386 Architecture][i386-shield]
 
-_An instance of the Spliit application deployed to homeassistant._
+_An instance of the Spliit web application deployed to homeassistant._ See https://github.com/spliit-app/spliit for more details
 
 <!--
 
