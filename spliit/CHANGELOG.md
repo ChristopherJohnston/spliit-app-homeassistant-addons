@@ -1,5 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.0.10
+
+- Update to spliit 1.4.0
+- Fix env variables set from config entries for expense documents upload
+
 ## 1.0.9
 
 - use specific tag on spliit repo and update to spliit 1.2.0
