@@ -1,4 +1,4 @@
-# Home Assistant Add-on: Example add-on
+# Home Assistant Add-on: Spliit
 
 _An instance of the Spliit web application deployed to homeassistant._ See https://github.com/spliit-app/spliit for more details
 
