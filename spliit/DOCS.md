@@ -23,3 +23,5 @@ Pre-requisite: An postgres db instance. If you dont already have one, see the [P
 
 See the [Spliit github page](https://github.com/spliit-app/spliit) for configuration details.
 
+[addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
+[addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=67e08976_spliit&repository_url=https%3A%2F%2Fgithub.com%2FChristopherJohnston%2Fspliit-app-homeassistant-addons
