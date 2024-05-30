@@ -1,4 +1,9 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
+## 1.0.14
+
+- Update to spliit 1.8.1
+- Update next.config.js to support custom upload endpoints
+
 ## 1.0.13
 
 - Update to spliit 1.7.0
