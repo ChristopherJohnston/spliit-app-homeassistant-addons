@@ -2,6 +2,7 @@
 ## 1.0.15
 
 - Update to spliit 1.9.0
+- Update next.config.js to support i18n, and rename to include .mjs suffix.
 
 ## 1.0.14
 
