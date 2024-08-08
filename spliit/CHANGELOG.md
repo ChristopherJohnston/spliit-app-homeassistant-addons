@@ -1,4 +1,8 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
+## 1.0.15
+
+- Update to spliit 1.9.0
+
 ## 1.0.14
 
 - Update to spliit 1.8.1
