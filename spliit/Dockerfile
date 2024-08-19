@@ -21,7 +21,7 @@ RUN \
 
 WORKDIR /temp/spliit
 COPY .env .
-COPY next.config.js .
+COPY next.config.mjs .
 
 RUN npm install --ignore-scripts \
         && npm install sharp \
@@ -31,7 +31,7 @@ RUN npm install --ignore-scripts \
         && ls -la \
         && mkdir -p /var/www/spliit \
         && cd /var/www/spliit \
-        && cp /temp/spliit/next.config.js ./ \
+        && cp /temp/spliit/next.config.mjs ./ \
         && cp -r /temp/spliit/public ./ \
         && cp -r /temp/spliit/build ./ \
         && cp -r /temp/spliit/node_modules ./ \
