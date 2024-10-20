@@ -1,6 +1,6 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: Spliit
-version: "1.0.15"
+version: "1.0.16"
 slug: spliit
 description: Free and Open Source Alternative to Splitwise. Share expenses with your friends and family.
 url: "https://github.com/ChristopherJohnston/spliit-app-homeassistant-addons/tree/main/spliit"
