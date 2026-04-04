@@ -1,6 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 ## 1.0.16
 
+- update to spliit 1.19.1
+
+## 1.0.16
+
 - update to spliit 1.14.0
 - update homeassistant builder to 2024.08.2
 
