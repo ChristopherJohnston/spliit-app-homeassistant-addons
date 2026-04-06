@@ -1,3 +1,11 @@
+# Validate the X-Ingress-Path header against the known HA Ingress URL pattern
+# before embedding it in JavaScript. Any value that does not match is replaced
+# with an empty string so the client-side patch script is a no-op.
+map $http_x_ingress_path $safe_ingress_path {
+    ~^/api/hassio_ingress/[a-zA-Z0-9][a-zA-Z0-9_-]*$  $http_x_ingress_path;
+    default                                  "";
+}
+
 server {
     listen {{ .interface }}:8099 default_server;
 
@@ -37,20 +45,62 @@ server {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header Origin "";
-        proxy_redirect '/' $http_x_ingress_path/;
+        proxy_redirect '/' $safe_ingress_path/;
 
-        # Disable compression or the sub_filters will not be applied
+        # Disable compression so sub_filter works on the response body
         proxy_set_header Accept-Encoding "";
 
-        # add the ingress path to all links
-        sub_filter_types *;
-        sub_filter 'href="/' 'href="$http_x_ingress_path/';
-        sub_filter 'src="/' 'src="$http_x_ingress_path/';
+        # Only apply sub_filter to HTML responses to avoid corrupting
+        # JSON, RSC payloads, and other non-HTML content types
+        sub_filter_types text/html;
+        sub_filter_once off;
+
+        # Rewrite absolute paths in HTML attributes to include the ingress base path
+        sub_filter 'href="/' 'href="$safe_ingress_path/';
+        sub_filter 'src="/' 'src="$safe_ingress_path/';
+        sub_filter 'action="/' 'action="$safe_ingress_path/';
 
         # Sub ingress path to the image srcset tags
-        sub_filter 'srcset="/' 'srcset="$http_x_ingress_path/';
-        sub_filter ', /_next/image' ', $http_x_ingress_path/_next/image';
+        sub_filter 'srcset="/' 'srcset="$safe_ingress_path/';
+        sub_filter ', /_next/image' ', $safe_ingress_path/_next/image';
 
-        sub_filter_once off;
+        # Inject a script as early as possible in <head> that patches
+        # window.fetch, pushState, and replaceState so that Next.js
+        # client-side navigation and RSC data fetches are sent through
+        # the correct HA Ingress URL rather than the bare domain root.
+        #
+        # The injected logic (expanded for readability):
+        #   var p = "<ingress-path>";          // e.g. /api/hassio_ingress/TOKEN
+        #   if (!p) return;                    // no-op when accessed directly
+        #   // Patch fetch so RSC / API requests carry the ingress prefix.
+        #   // Handles both string URLs and Request objects; skips protocol-
+        #   // relative URLs (starting with "//") and already-prefixed URLs.
+        #   var _f = window.fetch;
+        #   window.fetch = function(u, o) {
+        #     if (typeof u === "string" && u[0]==="/" && u.slice(0,2)!="//"
+        #         && u.slice(0,p.length) !== p) {
+        #       u = p + u;
+        #     } else if (typeof Request!=="undefined" && u instanceof Request) {
+        #       try {
+        #         var pu = new URL(u.url);
+        #         if (pu.origin===location.origin && pu.pathname[0]==="/"
+        #             && pu.pathname.slice(0,p.length)!==p) {
+        #           pu.pathname = p + pu.pathname;
+        #           u = new Request(pu.href, u);
+        #         }
+        #       } catch(e) {}
+        #     }
+        #     return _f.call(this, u, o);
+        #   };
+        #   // Patch history so the address bar stays on the ingress URL
+        #   ["pushState","replaceState"].forEach(function(m) {
+        #     var h = window.history, orig = h[m].bind(h);
+        #     h[m] = function(s, t, u) {
+        #       if (u && typeof u==="string" && u[0]==="/" && u.slice(0,2)!="//"
+        #           && u.slice(0,p.length)!==p) { u = p + u; }
+        #       return orig(s, t, u);
+        #     };
+        #   });
+        sub_filter '<head>' '<head><script>(function(){var p="$safe_ingress_path";if(!p)return;var _f=window.fetch;window.fetch=function(u,o){if(typeof u==="string"&&u[0]==="/"&&u.slice(0,2)!="//"&&u.slice(0,p.length)!==p){u=p+u;}else if(typeof Request!=="undefined"&&u instanceof Request){try{var pu=new URL(u.url);if(pu.origin===location.origin&&pu.pathname[0]==="/"&&pu.pathname.slice(0,p.length)!==p){pu.pathname=p+pu.pathname;u=new Request(pu.href,u);}}catch(e){}}return _f.call(this,u,o);};["pushState","replaceState"].forEach(function(m){var h=window.history,orig=h[m].bind(h);h[m]=function(s,t,u){if(u&&typeof u==="string"&&u[0]==="/"&&u.slice(0,2)!="//"&&u.slice(0,p.length)!==p){u=p+u;}return orig(s,t,u);};});})();</script>';
     }
 }
